@@ -27,6 +27,10 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
+
+# Remove recovery cache from persist
+rm -rf /mnt/vendor/persist/cache/recovery
+
 target=`getprop ro.board.platform`
 low_ram=`getprop ro.config.low_ram`
 if [ -f /sys/devices/soc0/soc_id ]; then
