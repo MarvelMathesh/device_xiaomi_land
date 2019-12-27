@@ -80,7 +80,7 @@
     <ctl name="EAR_S" value="ZERO" />
     <ctl name="HPHL" value="ZERO" />
     <ctl name="HPHR" value="ZERO" />
-    <ctl name="Lineout_1 amp" value="DISABLE"/> 
+    <ctl name="Lineout_1 amp" value="DISABLE"/>
     <ctl name="headset amp" value="DISABLE"/>
     <ctl name="SPK DAC Switch" value="0" />
     <ctl name="SPK" value="ZERO" />
@@ -1312,6 +1312,10 @@
         <path name="adc2" />
         <ctl name="ADC2 MUX" value="INP2" />
         <ctl name="IIR1 INP1 MUX" value="DEC1" />
+    </path>
+
+    <path name="hph-lowpower-mode">
+        <ctl name="RX HPH Mode" value="CLS_H_LOHIFI" />
     </path>
 
     <path name="headset-mic">
