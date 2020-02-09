@@ -1371,6 +1371,10 @@
         <path name="headset-mic-default" />
     </path>
 
+    <path name="voice-headset">
+        <path name="headphones" />
+    </path>
+
     <path name="speaker-and-headphones">
         <path name="speaker" />
         <path name="headphones" />
