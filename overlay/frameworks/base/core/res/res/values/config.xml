@@ -779,4 +779,7 @@
 
     <!-- Enable pocket mode -->
     <bool name="config_proxiSensorWakupCheck">true</bool>
+
+    <!-- Whether device supports gestures on fingerprint sensor -->
+    <bool name="config_supportsGesturesOnFingerprintSensor">true</bool>
 </resources>
