@@ -32,3 +32,6 @@
 
 # VirtualKeys
 /sys/board_properties/virtualkeys.*         u:object_r:sysfs_virtualkeys:s0
+
+# FPS Info
+/sys/devices/virtual/graphics/fb0/measured_fps           u:object_r:sysfs_fps:s0
