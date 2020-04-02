@@ -213,6 +213,10 @@ on boot
     chown system system /sys/android_touch/doubletap2wake
     chmod 660 /sys/android_touch/doubletap2wake
 
+    # FPS Info
+    chown system graphics /sys/class/graphics/fb0/measured_fps
+    chmod 0666 /sys/class/graphics/fb0/measured_fps
+
 # msm specific files that need to be created on /data
 on post-fs-data
     mkdir /data/vendor/misc 01771 system system
