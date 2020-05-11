@@ -798,4 +798,7 @@
 
     <!-- If true, the display will be shifted around in ambient mode. -->
     <bool name="config_enableBurnInProtection">true</bool>
+
+    <!-- Allow devices to use a lower screenrecording bitrate because of old hardware -->
+    <bool name="config_device_needs_lower_bitrate">true</bool>
 </resources>
