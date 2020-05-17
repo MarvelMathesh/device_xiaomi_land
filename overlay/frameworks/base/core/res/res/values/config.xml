@@ -508,6 +508,9 @@
     <!-- Flag indicating whether we should enable smart battery. -->
     <bool name="config_smart_battery_available">true</bool>
 
+    <!-- Smart charge sysfs node and value for suspend/resume charging-->
+    <bool name="config_smartChargingAvailable">true</bool>
+
     <!-- The name of the package that will hold the assistant role by default. -->
     <string name="config_defaultAssistant" translatable="false">com.google.android.googlequicksearchbox</string>
 
@@ -740,6 +743,11 @@
     <!-- Control whether the always on display mode is enabled by default. This value will be used
          during initialization when the setting is still null. -->
     <bool name="config_dozeAlwaysOnEnabled">false</bool>
+
+	<!-- Smart charge sysfs node and value for suspend/resume charging-->
+    <string name="config_SmartChargingSysfsNode" translatable="false">/sys/class/power_supply/battery/charging_enabled</string>
+    <string name="config_SmartChargingSuspendValue" translatable="false">0</string>
+    <string name="config_SmartChargingResumeValue" translatable="false">1</string>
 
 	<!-- Whether the device show_vendor_mismatch_message -->
     <bool name="config_show_vendor_mismatch_message">false</bool>

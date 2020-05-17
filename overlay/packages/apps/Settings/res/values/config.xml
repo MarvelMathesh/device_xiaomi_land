@@ -23,6 +23,9 @@
     <!-- Battery Health Enable -->
     <bool name="config_supportBatteryHealth">true</bool>
 
+    <!-- Smart Charging enable -->
+    <bool name="config_supportSmartCharging">false</bool>
+
     <!-- Battery Health -->
     <string name="config_batChargeCycle">/sys/class/power_supply/bms/cycle_count</string>
     <string name="config_batDesCap">/sys/class/power_supply/bms/charge_full_design</string>
