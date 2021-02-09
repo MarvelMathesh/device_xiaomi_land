@@ -78,7 +78,7 @@ on post-fs-data
 
 #start camera server as daemon
 service vendor.qcamerasvr /vendor/bin/mm-qcamera-daemon
-    class late_start
+    class main
     user camera
     group camera system inet input graphics
     writepid /dev/cpuset/system-background/tasks
@@ -187,7 +187,7 @@ service ppd /vendor/bin/mm-pp-dpps
     socket pps stream 0660 system system
     disabled
 
-on boot 
+on boot
     # Smart Charging
     chown system system /sys/class/power_supply/battery/charging_enabled
     chmod 0666 /sys/class/power_supply/battery/charging_enabled
