@@ -801,4 +801,10 @@
 
     <!-- Allow devices to use a lower screenrecording bitrate because of old hardware -->
     <bool name="config_device_needs_lower_bitrate">true</bool>
+
+     <!-- HW keys prefs-->
+    <bool name="config_hwKeysPref">true</bool>
+
+    <!-- Whether a software navigation bar should be shown. NOTE: in the future this may be autodetected from the Configuration. -->
+    <bool name="config_showNavigationBar">false</bool>
 </resources>
