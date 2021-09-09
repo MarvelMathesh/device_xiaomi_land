@@ -55,10 +55,6 @@ fi
 
 function blob_fixup() {
         case "${1}" in
-	system/lib/libwfdnative.so | system/lib64/libwfdnative.so )
-        "${PATCHELF}" --remove-needed "android.hidl.base@1.0.so" "${2}"
-        ;;
-
 	vendor/bin/gx_fpcmd|vendor/bin/gx_fpd)
         "${PATCHELF}" --remove-needed "libbacktrace.so" "${2}"
         "${PATCHELF}" --remove-needed "libunwind.so" "${2}"
