@@ -1,7 +1,6 @@
 /*
    Copyright (c) 2016, The CyanogenMod Project
-   Copyright (c) 2017, The XPerience Project
-   Copyright (c) 2020, The LineageOS Project
+   Copyright (C) 2019 The LineageOS Project.
 
    Redistribution and use in source and binary forms, with or without
    modification, are permitted provided that the following conditions are
@@ -29,106 +28,96 @@
    IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <android-base/file.h>
-#include <android-base/logging.h>
-#include <android-base/properties.h>
-#include <android-base/strings.h>
-#include <fcntl.h>
-#include <iostream>
-#include <sstream>
+#include <cstdlib>
+#include <fstream>
 #include <stdlib.h>
-#include <string>
+#include <stdio.h>
+#include <string.h>
+#include <sys/sysinfo.h>
+
 #define _REALLY_INCLUDE_SYS__SYSTEM_PROPERTIES_H_
 #include <sys/_system_properties.h>
-#include <sys/sysinfo.h>
+#include <android-base/file.h>
+#include <android-base/properties.h>
+#include <android-base/strings.h>
 
 #include "property_service.h"
 #include "vendor_init.h"
 
 using android::base::GetProperty;
+using std::string;
+using android::base::ReadFileToString;
+using android::base::Trim;
 
-static std::string board_id;
+__attribute__ ((weak))
+void init_target_properties() {}
 
-static void property_override(char const prop[], char const value[]) {
-    prop_info *pi;
+string heapstartsize, heapgrowthlimit, heapsize,
+       heapminfree, heapmaxfree, heaptargetutilization;
 
-    pi = (prop_info*) __system_property_find(prop);
-    if (pi)
-        __system_property_update(pi, value, strlen(value));
+void property_override(string prop, string value)
+{
+    auto pi = (prop_info*) __system_property_find(prop.c_str());
+
+    if (pi != nullptr)
+        __system_property_update(pi, value.c_str(), value.size());
     else
-        __system_property_add(prop, strlen(prop), value, strlen(value));
+        __system_property_add(prop.c_str(), prop.size(), value.c_str(), value.size());
 }
 
-static bool is3GBram() {
+void check_device()
+{
+    struct sysinfo sys;
+
+    sysinfo(&sys);
+
+    if (sys.totalram > 3072ull * 1024 * 1024) {
+        // from - phone-xhdpi-4096-dalvik-heap.mk // increased heapgrowthlimit
+        heapgrowthlimit = "256m";
+        heapsize = "512m";
+        heaptargetutilization = "0.6";
+        heapminfree = "8m";
+        heapmaxfree = "16m";
+    } else if (sys.totalram > 2048ull * 1024 * 1024) {
+        // from - custom (adapted 2048-4096 values)
+        heapgrowthlimit = "192m";
+        heapsize = "512m";
+        heaptargetutilization = "0.75";
+        heapminfree = "2m";
+        heapmaxfree = "8m";
+    } else {
+        // from - phone-xhdpi-2048-dalvik-heap.mk
+        heapgrowthlimit = "128m";
+        heapsize = "256m";
+        heaptargetutilization = "0.75";
+        heapminfree = "512k";
+        heapmaxfree = "8m";
+   }
+}
+
+void low_ram_device()
+{
     struct sysinfo sys;
     sysinfo(&sys);
-    return sys.totalram > 2048ull * 1024 * 1024;
-}
 
-static void import_kernel_cmdline_land(bool in_qemu,
-                           const std::function<void(const std::string&, const std::string&, bool)>& fn) {
-    std::string cmdline;
-    android::base::ReadFileToString("/proc/cmdline", &cmdline);
-    for (const auto& entry : android::base::Split(android::base::Trim(cmdline), " ")) {
-        std::vector<std::string> pieces = android::base::Split(entry, "=");
-        /* The board_id entry has two equal signs, so accept more than two pieces */
-        if (pieces.size() >= 2) { // original -> == 2
-            fn(pieces[0], pieces[1], in_qemu);
-        }
+    if (sys.totalram <= 2048ull * 1024 * 1024) {
+        // Generated from build/make/target/product/go_defaults_common.mk
+        property_override("ro.config.low_ram", "true");
+        property_override("ro.config.avoid_gfx_accel", "true");
     }
 }
 
-static void parse_cmdline_boardid(const std::string& key,
-        const std::string& value, bool for_emulator __attribute__((unused))) {
-    if (key.empty())
-        return;
+void vendor_load_properties()
+{
+    check_device();
+    low_ram_device();
 
-    /* Here our value is board_id:board_vol; we only want the first part */
-    if (key == "board_id") {
-        std::istringstream iss(value);
-        std::string token;
-        std::getline(iss, token, ':');
-        board_id = token;
-    }
-}
+    property_override("dalvik.vm.heapstartsize", "8m");
+    property_override("dalvik.vm.heapgrowthlimit", heapgrowthlimit);
+    property_override("dalvik.vm.heapsize", heapsize);
+    property_override("dalvik.vm.heaptargetutilization", heaptargetutilization);
+    property_override("dalvik.vm.heapminfree", heapminfree);
+    property_override("dalvik.vm.heapmaxfree", heapmaxfree);
 
-static void set_ramconfig() {
-    if (is3GBram()) {
-        property_override("dalvik.vm.heapstartsize", "8m");
-        property_override("dalvik.vm.heapgrowthlimit", "288m");
-        property_override("dalvik.vm.heapsize", "768m");
-        property_override("dalvik.vm.heaptargetutilization", "0.75");
-        property_override("dalvik.vm.heapminfree", "512k");
-        property_override("dalvik.vm.heapmaxfree", "8m");
-    } else {
-        property_override("dalvik.vm.heapstartsize", "8m");
-        property_override("dalvik.vm.heapgrowthlimit", "192m");
-        property_override("dalvik.vm.heapsize", "512m");
-        property_override("dalvik.vm.heaptargetutilization", "0.75");
-        property_override("dalvik.vm.heapminfree", "2m");
-        property_override("dalvik.vm.heapmaxfree", "8m");
-    }
-}
-
-static void variant_properties() {
-    std::string product = GetProperty("ro.product.name", "");
-    if (product.find("land") == std::string::npos)
-        return;
-
-    // Get board_id from cmdline
-    import_kernel_cmdline_land(false, parse_cmdline_boardid);
-
-    // Set board id
-    property_override("ro.product.wt.boardid", board_id.c_str());
-
-    // Set variant based on board_id
-    if (board_id == "S88537AB1") {
-        property_override("ro.product.model", "Redmi 3X");
-        property_override("ro.product.vendor.model", "Redmi 3X");
-    }
-}
-
-void vendor_load_properties() {
-    set_ramconfig();
-    variant_properties();
+    init_target_properties();
 }
