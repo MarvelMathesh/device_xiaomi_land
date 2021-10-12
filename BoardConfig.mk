@@ -1,13 +1,11 @@
 #
-# Copyright (C) 2016 The CyanogenMod Project
-# Copyright (C) 2017 The XPerience Project
-# Copyright (C) 2017-2018 The LineageOS Project
+# Copyright (C) 2017-2021 The LineageOS Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
-# http://www.apache.org/licenses/LICENSE-2.0
+#      http://www.apache.org/licenses/LICENSE-2.0
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
@@ -19,47 +17,46 @@
 DEVICE_PATH := device/xiaomi/land
 
 # Architecture
-TARGET_ARCH 	    	:= arm64
-TARGET_ARCH_VARIANT 	:= armv8-a
-TARGET_CPU_ABI 		:= arm64-v8a
-TARGET_CPU_ABI2 	:=
-TARGET_CPU_VARIANT 	:= generic
+TARGET_ARCH := arm64
+TARGET_ARCH_VARIANT := armv8-a
+TARGET_CPU_ABI := arm64-v8a
+TARGET_CPU_ABI2 :=
+TARGET_CPU_VARIANT := cortex-a53
 TARGET_CPU_VARIANT_RUNTIME := cortex-a53
 
 # Second architecture
-TARGET_2ND_ARCH 	:= arm
+TARGET_2ND_ARCH := arm
 TARGET_2ND_ARCH_VARIANT := armv8-a
-TARGET_2ND_CPU_ABI 	:= armeabi-v7a
-TARGET_2ND_CPU_ABI2 	:= armeabi
-TARGET_2ND_CPU_VARIANT 	:= generic
+TARGET_2ND_CPU_ABI := armeabi-v7a
+TARGET_2ND_CPU_ABI2 := armeabi
+TARGET_2ND_CPU_VARIANT := cortex-a53
 TARGET_2ND_CPU_VARIANT_RUNTIME := cortex-a53
 
-TARGET_BOARD_PLATFORM 	  := msm8937
 TARGET_BOARD_PLATFORM_GPU := qcom-adreno505
-BUILD_BROKEN_DUP_RULES := true
-
-# Binder
+TARGET_BOARD_PLATFORM := msm8937
 TARGET_BOARD_SUFFIX := _64
-TARGET_USES_64_BIT_BINDER := true
 
-# Bootloader
-TARGET_BOOTLOADER_BOARD_NAME 	:= msm8937
-TARGET_NO_BOOTLOADER 		:= true
+# Device Properties
+TARGET_ODM_PROP += $(DEVICE_PATH)/odm.prop
+TARGET_PRODUCT_PROP += $(DEVICE_PATH)/product.prop
+TARGET_SYSTEM_PROP += $(DEVICE_PATH)/system.prop
+TARGET_VENDOR_PROP += $(DEVICE_PATH)/vendor.prop
 
 # kernel
 BOARD_KERNEL_BASE		:= 0x80000000
 BOARD_KERNEL_CMDLINE 		:= androidboot.hardware=qcom msm_rtb.filter=0x237 ehci-hcd.park=3 lpm_levels.sleep_disabled=1 androidboot.bootdevice=7824900.sdhci earlycon=msm_hsl_uart,0x78B0000 androidboot.usbconfigfs=false loop.max_part=7
+# BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
 BOARD_KERNEL_IMAGE_NAME 	:= Image.gz-dtb
 BOARD_KERNEL_PAGESIZE 		:=  2048
 BOARD_MKBOOTIMG_ARGS 		:= --ramdisk_offset 0x01000000 --second_offset 0x00f00000 --tags_offset 0x00000100
+TARGET_COMPILE_WITH_MSM_KERNEL := true
 TARGET_KERNEL_CONFIG 		:= land_defconfig
 TARGET_KERNEL_SOURCE 		:= kernel/xiaomi/msm8937
 TARGET_KERNEL_VERSION         := 4.9
 TARGET_KERNEL_CLANG_COMPILE     := true
-TARGET_EXFAT_DRIVER		:= sdfat
 
 # ANT+
-BOARD_ANT_WIRELESS_DEVICE := "qualcomm-hidl"
+BOARD_ANT_WIRELESS_DEVICE := "vfs-prerelease"
 
 # Audio
 AUDIO_USE_LL_AS_PRIMARY_OUTPUT := true
@@ -80,7 +77,7 @@ AUDIO_FEATURE_ENABLED_FLUENCE := true
 AUDIO_FEATURE_ENABLED_HDMI_SPK := true
 AUDIO_FEATURE_ENABLED_HDMI_EDID := true
 AUDIO_FEATURE_ENABLED_HFP := true
-AUDIO_FEATURE_ENABLED_INCALL_MUSIC := false
+AUDIO_FEATURE_ENABLED_INCALL_MUSIC := true
 AUDIO_FEATURE_ENABLED_MULTI_VOICE_SESSIONS := true
 AUDIO_FEATURE_ENABLED_PCM_OFFLOAD := true
 AUDIO_FEATURE_ENABLED_PCM_OFFLOAD_24 := true
@@ -108,55 +105,39 @@ AUDIO_FEATURE_ENABLED_AUDIOSPHERE := true
 BOARD_USES_ALSA_AUDIO := true
 BOARD_SUPPORTS_SOUND_TRIGGER := true
 USE_CUSTOM_AUDIO_POLICY := 1
-USE_XML_AUDIO_POLICY_CONF := 1
+TARGET_USES_AOSP_FOR_AUDIO := true
+
+# Build
+BUILD_BROKEN_DUP_RULES := true
+BUILD_BROKEN_PREBUILT_ELF_FILES := true
+# BUILD_BROKEN_VINTF_PRODUCT_COPY_FILES := true  #Needed in Octavi ROM
+
+# Bootloader
+TARGET_BOOTLOADER_BOARD_NAME := MSM8937
+TARGET_NO_BOOTLOADER := true
 
 # Bluetooth
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(DEVICE_PATH)/bluetooth
-BOARD_HAVE_BLUETOOTH_QCOM                   := true
-BLUETOOTH_HCI_USE_MCT                       := true
-QCOM_BT_USE_SMD_TTY                         := true
-QCOM_BT_USE_BTNV := true
+
+# Boot animation
+TARGET_BOOTANIMATION_HALF_RES := true
 
 # Camera
-USE_DEVICE_SPECIFIC_CAMERA   := true
-BOARD_QTI_CAMERA_32BIT_ONLY  := true
+TARGET_USES_QTI_CAMERA_DEVICE := true
+BOARD_QTI_CAMERA_32BIT_ONLY := true
+USE_DEVICE_SPECIFIC_CAMERA := true
+TARGET_USES_QTI_CAMERA_DEVICE := true
+TARGET_TS_MAKEUP := true
 TARGET_PROCESS_SDK_VERSION_OVERRIDE += \
     /vendor/bin/mm-qcamera-daemon=23
-TARGET_USES_MEDIA_EXTENSIONS := true
-TARGET_USES_QTI_CAMERA_DEVICE := true
-TARGET_TS_MAKEUP             := true
-
-# Charger
-BOARD_CHARGER_DISABLE_INIT_BLANK := true
-BOARD_CHARGER_ENABLE_SUSPEND := true
-
-# Clang
-INTERNAL_LOCAL_CLANG_EXCEPTION_PROJECTS += $(DEVICE_PATH)
-
-# CNE / DPM
-BOARD_USES_QCNE := true
-
-# Dexpreopt
-ifeq ($(HOST_OS),linux)
-  WITH_DEXPREOPT ?= true
-  WITH_DEXPREOPT_BOOT_IMG_AND_SYSTEM_SERVER_ONLY ?= true
-endif
 
 #Display
+TARGET_SCREEN_DENSITY := 300
 BOARD_USES_ADRENO := true
-TARGET_SCREEN_DENSITY := 280
 TARGET_USES_ION := true
-TARGET_USES_NEW_ION_API :=true
 TARGET_USES_GRALLOC1 := true
 TARGET_USES_HWC2 := true
-TARGET_FORCE_HWC_FOR_VIRTUAL_DISPLAYS := true
-MAX_EGL_CACHE_KEY_SIZE := 12*1024
-MAX_EGL_CACHE_SIZE := 2048*1024
-NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 OVERRIDE_RS_DRIVER := libRSDriver_adreno.so
-TARGET_USES_C2D_COMPOSITION := true
-USE_OPENGL_RENDERER := true
-TARGET_CONTINUOUS_SPLASH_ENABLED := true
 
 # DRM
 TARGET_ENABLE_MEDIADRM_64 := true
@@ -166,100 +147,99 @@ TARGET_TAP_TO_WAKE_NODE := "/sys/android_touch/doubletap2wake"
 
 # Encryption
 TARGET_HW_DISK_ENCRYPTION := true
-
-# FM
-BOARD_HAVE_QCOM_FM                 := true
-TARGET_QCOM_NO_FM_FIRMWARE         := true
+TARGET_LEGACY_HW_DISK_ENCRYPTION := true
 
 # Filesystem
+TARGET_EXFAT_DRIVER := sdfat
+BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := ext4
+BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := ext4
+TARGET_USERIMAGES_USE_EXT4 := true
+TARGET_USERIMAGES_USE_F2FS := true
+BOARD_ROOT_EXTRA_SYMLINKS := \
+    /vendor/dsp:/dsp \
+    /vendor/firmware_mnt:/firmware \
+    /mnt/vendor/persist:/persist
 TARGET_FS_CONFIG_GEN := $(DEVICE_PATH)/config.fs
 
+# FM
+BOARD_HAVE_QCOM_FM := true
+TARGET_QCOM_NO_FM_FIRMWARE := true
+
 # GPS
-BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE := true
+BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE := $(TARGET_BOARD_PLATFORM)
 USE_DEVICE_SPECIFIC_GPS := true
 TARGET_NO_RPC := true
 
 # HIDL
 DEVICE_FRAMEWORK_MANIFEST_FILE := $(DEVICE_PATH)/framework_manifest.xml
 DEVICE_MANIFEST_FILE := $(DEVICE_PATH)/manifest.xml
-DEVICE_MATRIX_FILE   := $(DEVICE_PATH)/compatibility_matrix.xml
+DEVICE_MATRIX_FILE := $(DEVICE_PATH)/compatibility_matrix.xml
 
 # Init
-TARGET_INIT_VENDOR_LIB         := libinit_land
-TARGET_PLATFORM_DEVICE_BASE    := /devices/soc/
+TARGET_INIT_VENDOR_LIB := //$(DEVICE_PATH):libinit_land
 TARGET_RECOVERY_DEVICE_MODULES := libinit_land
 
 # Keystore
 TARGET_PROVIDES_KEYMASTER := true
-TARGET_KEYMASTER_WAIT_FOR_QSEE := true
 
 # Lockscreen real time charging current values
 BOARD_GLOBAL_CFLAGS += -DBATTERY_REAL_INFO
 
 # Malloc
-MALLOC_SVELTE := true
+MALLOC_SVELTE_FOR_LIBC32 := true
 
 # Partitions
 BOARD_BOOTIMAGE_PARTITION_SIZE     := 67108864
-BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE  := ext4
-BOARD_CACHEIMAGE_PARTITION_SIZE    := 258998272
+BOARD_CACHEIMAGE_PARTITION_SIZE    := 268435456
 BOARD_RECOVERYIMAGE_PARTITION_SIZE := 67108864
-BOARD_SYSTEMIMAGE_PARTITION_SIZE   := 3119513600
-BOARD_USERDATAIMAGE_PARTITION_SIZE := 10365157376 #10365173760 - 16384 use the 16gb version
-BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := ext4
+BOARD_SYSTEMIMAGE_PARTITION_SIZE   := 3221225472
+BOARD_USERDATAIMAGE_PARTITION_SIZE := 26301931008
 BOARD_VENDORIMAGE_PARTITION_SIZE   := 536870912
 BOARD_FLASH_BLOCK_SIZE 		   := 131072
-BOARD_ROOT_EXTRA_SYMLINKS := \
-    /vendor/dsp:/dsp \
-    /vendor/firmware_mnt:/firmware \
-    /mnt/vendor/persist:/persist
-TARGET_COPY_OUT_VENDOR := vendor
-TARGET_USES_MKE2FS := true
-TARGET_USERIMAGES_USE_EXT4 := true
-TARGET_USERIMAGES_USE_F2FS := true
 
 # Peripheral manager
 TARGET_PER_MGR_ENABLED := true
 
-# Properties
-TARGET_SYSTEM_PROP += $(DEVICE_PATH)/system.prop
-TARGET_VENDOR_PROP += $(DEVICE_PATH)/vendor.prop
+# Power
+TARGET_USES_INTERACTION_BOOST := true
 
-# QCOM support
+# Qualcomm support
 BOARD_USES_QCOM_HARDWARE := true
 
 # RIL
 DISABLE_RILD_OEM_HOOK := true
-TARGET_PROVIDES_QTI_TELEPHONY_JAR := true
+TARGET_USES_OLD_MNC_FORMAT := true
 
 # Recovery
-TARGET_RECOVERY_FSTAB 		 := $(DEVICE_PATH)/rootdir/fstab.qcom
+TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/rootdir/fstab.qcom
 
 # SELinux
 include device/qcom/sepolicy-legacy-um/SEPolicy.mk
-#BOARD_PLAT_PRIVATE_SEPOLICY_DIR += $(DEVICE_PATH)/sepolicy/private
 BOARD_VENDOR_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy/vendor
 
 #Treble
-BOARD_PROPERTY_OVERRIDES_SPLIT_ENABLED := true
 BOARD_VNDK_VERSION := current
 ENABLE_VENDOR_IMAGE := true
 PRODUCT_FULL_TREBLE_OVERRIDE := true
 PRODUCT_VENDOR_MOVE_ENABLED := true
+TARGET_COPY_OUT_VENDOR := vendor
+
+# Vendor Security patch level
+VENDOR_SECURITY_PATCH := 2021-02-05
 
 # Wi-Fi
 BOARD_HAS_QCOM_WLAN := true
 BOARD_WLAN_DEVICE := qcwcn
 BOARD_HOSTAPD_DRIVER := NL80211
 BOARD_HOSTAPD_PRIVATE_LIB := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
+HOSTAPD_VERSION := VER_0_8_X
 BOARD_WPA_SUPPLICANT_DRIVER := NL80211
 BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
 WIFI_DRIVER_FW_PATH_AP := "ap"
 WIFI_DRIVER_FW_PATH_STA := "sta"
 WIFI_DRIVER_FW_PATH_P2P := "p2p"
-WIFI_HIDL_FEATURE_DISABLE_AP_MAC_RANDOMIZATION := true
-WIFI_HIDL_UNIFIED_SUPPLICANT_SERVICE_RC_ENTRY := true
 WPA_SUPPLICANT_VERSION := VER_0_8_X
+WIFI_HIDL_UNIFIED_SUPPLICANT_SERVICE_RC_ENTRY := true
 
 # Inherit the proprietary files
 -include vendor/xiaomi/land/BoardConfigVendor.mk

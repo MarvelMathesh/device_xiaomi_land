@@ -54,55 +54,45 @@ if [ -z "${SRC}" ]; then
 fi
 
 function blob_fixup() {
-    case "${1}" in
-
-    product/lib64/libdpmframework.so)
-        sed -i "s/libhidltransport.so/libcutils-v29.so\x00\x00\x00/" "${2}"
+        case "${1}" in
+	system/lib/libwfdnative.so | system/lib64/libwfdnative.so )
+        "${PATCHELF}" --remove-needed "android.hidl.base@1.0.so" "${2}"
         ;;
 
-    vendor/bin/gx_fpcmd|vendor/bin/gx_fpd)
+	vendor/bin/gx_fpcmd|vendor/bin/gx_fpd)
         "${PATCHELF}" --remove-needed "libbacktrace.so" "${2}"
         "${PATCHELF}" --remove-needed "libunwind.so" "${2}"
         ;;
     
-    vendor/bin/gx_fpd)
+	vendor/bin/gx_fpd)
         "${PATCHELF}" --add-needed "liblog.so" "${2}"
         ;;
 
-    vendor/lib64/hw/fingerprint.goodix.so)
+	vendor/lib64/hw/fingerprint.goodix.so)
         "${PATCHELF}" --remove-needed "libandroid_runtime.so" "${2}"
         ;;
 
-    vendor/lib/libmmcamera2_sensor_modules.so)
-        sed -i "s|/system/etc/camera|/vendor/etc/camera|g" "${2}"
+	vendor/lib/libmmcamera2_sensor_modules.so )
+        sed -i "s|/system/etc/camera/|/vendor/etc/camera/|g" "${2}"
         ;;
 
-    vendor/lib/libmmcamera2_stats_modules.so)
+        vendor/lib/libmmcamera2_stats_modules.so)
         sed -i "s|libgui.so|libwui.so|g" "${2}"
         "${PATCHELF}" --replace-needed "libandroid.so" "libshim_android.so" "${2}"
         ;;
 
-    vendor/lib/libmmsw_detail_enhancement.so|vendor/lib/libmmsw_platform.so|vendor/lib64/libmmsw_detail_enhancement.so|vendor/lib64/libmmsw_platform.so)
+        vendor/lib/libmmsw_detail_enhancement.so|vendor/lib/libmmsw_platform.so|vendor/lib64/libmmsw_detail_enhancement.so|vendor/lib64/libmmsw_platform.so)
         sed -i "s|libgui.so|libwui.so|g" "${2}"
         ;;
 
-    vendor/lib/libFaceGrade.so|vendor/lib/libarcsoft_beauty_shot.so)
+        vendor/lib/libFaceGrade.so|vendor/lib/libarcsoft_beauty_shot.so)
         "${PATCHELF}" --remove-needed "libandroid.so" "${2}"
         ;;
 
-    vendor/lib64/libfpservice.so)
+        vendor/lib64/libfpservice.so)
         "${PATCHELF}" --add-needed "libshim_binder.so" "${2}"
         ;;
-
-    vendor/lib64/libwvhidl.so)
-        "${PATCHELF}" --replace-needed "libprotobuf-cpp-lite.so" "libprotobuf-cpp-lite-v29.so" "${2}"
-        ;;
-
-    vendor/lib64/libsettings.so)
-        "${PATCHELF}" --replace-needed "libprotobuf-cpp-full.so" "libprotobuf-cpp-full-v29.so" "${2}"
-        ;;
-
-    esac
+        esac
 }
 
 # Initialize the helper
