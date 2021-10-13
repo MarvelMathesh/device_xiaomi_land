@@ -1,6 +1,22 @@
+allow init wcnss_device:chr_file write;
+
 allow init sysfs_dt2w:file { setattr };
-allow init sysfs_leds:lnk_file { read };
-allow init system_data_file:sock_file write;
-allow init system_server:fd use;
-allow init system_server:unix_stream_socket { read write };
-allow init adsprpcd_file:filesystem { mount relabelfrom relabelto };
+
+# Allow init to bind mount gps_debug.conf
+allow init system_file:file mounton;
+
+# adsprpcd
+allow init adsprpcd_file:filesystem { getattr mount relabelfrom relabelto };
+
+# Firmware
+allow init firmware_file:filesystem getattr;
+
+allow init wcnss_device:chr_file write;
+
+# FM
+allow qti_init_shell {
+    vendor_fm_prop
+}:property_service set;
+
+# LEDs
+allow init sysfs_leds:lnk_file read;

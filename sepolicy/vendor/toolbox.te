@@ -1,0 +1,3 @@
+allow toolbox toolbox:capability { kill };
+allow toolbox rootfs:dir { read };
+allow toolbox rootfs:dir { open };

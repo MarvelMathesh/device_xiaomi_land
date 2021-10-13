@@ -1,3 +1,1 @@
-allow rild vendor_file:file r_file_perms;
-get_prop(rild, radio_prop)
-set_prop(rild, radio_prop)
+allow rild rild_file:file r_file_perms;
