@@ -257,6 +257,10 @@ debug.sf.phase_offset_threshold_for_next_vsync_ns=11600000
 # System
 persist.sys.binary_xml=false
 
+# Soc
+ro.soc.manufacturer=QTI
+ro.soc.model=MSM8937
+
 # Time Services
 persist.backup.ntpServer=0.pool.ntp.org
 persist.timed.enable=true
