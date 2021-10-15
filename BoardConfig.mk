@@ -36,6 +36,11 @@ TARGET_BOARD_PLATFORM_GPU := qcom-adreno505
 TARGET_BOARD_PLATFORM := msm8937
 TARGET_BOARD_SUFFIX := _64
 
+# QCOM variant
+TARGET_QCOM_AUDIO_VARIANT := caf-msm8996
+TARGET_QCOM_DISPLAY_VARIANT := caf-msm8996
+TARGET_QCOM_MEDIA_VARIANT := caf-msm8996
+
 # Device Properties
 TARGET_ODM_PROP += $(DEVICE_PATH)/odm.prop
 TARGET_PRODUCT_PROP += $(DEVICE_PATH)/product.prop
@@ -54,6 +59,7 @@ TARGET_KERNEL_CONFIG 		:= land_defconfig
 TARGET_KERNEL_SOURCE 		:= kernel/xiaomi/msm8937
 TARGET_KERNEL_VERSION         := 4.9
 TARGET_KERNEL_CLANG_COMPILE     := true
+TARGET_KERNEL_CLANG_VERSION := proton
 
 # ANT+
 BOARD_ANT_WIRELESS_DEVICE := "vfs-prerelease"
@@ -181,6 +187,7 @@ TARGET_USES_OLD_MNC_FORMAT := true
 TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/rootdir/fstab.qcom
 
 # SELinux
+SELINUX_IGNORE_NEVERALLOWS := true
 include device/qcom/sepolicy-legacy-um/SEPolicy.mk
 BOARD_VENDOR_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy/vendor
 
