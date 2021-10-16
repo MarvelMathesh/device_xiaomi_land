@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-#define LOG_TAG "android.biometrics.fingerprint@2.1-service.land"
+#define LOG_TAG "biometrics.fingerprint@2.2-service.custom"
 
 #include <binder/ProcessState.h>
 
@@ -44,7 +44,7 @@ int main() {
     property_get("ro.hardware.fingerprint", vend, "none");
 
     if (!strcmp(vend, "none")) {
-    	ALOGE("ro.hardware.fingerprint not set! Killing " LOG_TAG " binder service!");
+        ALOGE("ro.hardware.fingerprint not set! Killing " LOG_TAG " binder service!");
         return 1;
     } else if (!strcmp(vend, "goodix")) {
         ALOGI("is_goodix = true");
@@ -60,8 +60,9 @@ int main() {
             return 1;
         }
 
-        // the conventional HAL might start binder services
+        // the conventional HAL might start vndbinder services
         android::ProcessState::initWithDriver("/dev/vndbinder");
+        // start a threadpool for vndbinder interactions
         android::ProcessState::self()->startThreadPool();
     }
 
@@ -69,9 +70,8 @@ int main() {
     configureRpcThreadpool(1, true /* callerWillJoin */);
 
     if (bio != nullptr) {
-        android::status_t ret = bio->registerAsService();
-        if (ret != android::OK) {
-            ALOGE("Cannot register BiometricsFingerprint service: %d", ret);
+        if (::android::OK != bio->registerAsService()) {
+            return 1;
         }
     } else {
         ALOGE("Can't create instance of BiometricsFingerprint, nullptr");

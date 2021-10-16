@@ -26,11 +26,9 @@ allow gx_fpd tee_device:chr_file rw_file_perms;
 # Allow access to ion device
 allow gx_fpd ion_device:chr_file rw_file_perms;
 
-# Allow to create and use sockets
+# Allow create socket
 allow gx_fpd self:socket create_socket_perms_no_ioctl;
-allow gx_fpd self:netlink_socket create_socket_perms_no_ioctl;
-allow gx_fpd self:netlink_generic_socket create_socket_perms_no_ioctl;
-allow gx_fpd self:netlink_kobject_uevent_socket create_socket_perms_no_ioctl;
+allow gx_fpd self:{ netlink_socket netlink_generic_socket } create_socket_perms_no_ioctl;
 
 # Allow reading firmware file
 r_dir_file(gx_fpd, firmware_file)

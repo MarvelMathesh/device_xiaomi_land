@@ -1,4 +1,4 @@
-service vendor.fps_hal /vendor/bin/hw/android.hardware.biometrics.fingerprint@2.1-service.land
+service vendor.fps_hal /vendor/bin/hw/android.hardware.biometrics.fingerprint@2.2-service.custom
     # "class hal" causes a race condition on some devices due to files created
     # in /data. As a workaround, postpone startup until later in boot once
     # /data is mounted.
@@ -7,6 +7,7 @@ service vendor.fps_hal /vendor/bin/hw/android.hardware.biometrics.fingerprint@2.
     user system
     group system sdcard_rw input uhid
     disabled
+    task_profiles ServiceCapacityLow
 
 service vendor.gx_fpd /vendor/bin/gx_fpd
     class core
@@ -30,6 +31,17 @@ on boot
     chmod 0660 /sys/devices/soc/soc:fpc1020/wakeup_enable
     chown system system /sys/devices/soc/soc:fpc1020/spi_prepare
     chmod 0660 /sys/devices/soc/soc:fpc1020/spi_prepare
+
+    chown system system /sys/devices/platform/soc/soc:fpc1020/compatible_all
+    chmod 0664 /sys/devices/platform/soc/soc:fpc1020/compatible_all
+    chown system system /sys/devices/platform/soc/soc:fpc1020/irq
+    chmod 0660 /sys/devices/platform/soc/soc:fpc1020/irq
+    chown system system /sys/devices/platform/soc/soc:fpc1020/hw_reset
+    chmod 0660 /sys/devices/platform/soc/soc:fpc1020/hw_reset
+    chown system system /sys/devices/platform/soc/soc:fpc1020/wakeup_enable
+    chmod 0660 /sys/devices/platform/soc/soc:fpc1020/wakeup_enable
+    chown system system /sys/devices/platform/soc/soc:fpc1020/spi_prepare
+    chmod 0660 /sys/devices/platform/soc/soc:fpc1020/spi_prepare
 
     # Goodix Fingerprint
     chown system system /dev/goodix_fp

@@ -1,20 +1,22 @@
 # DT2W
 /sys/android_touch(/.*)?                    u:object_r:sysfs_dt2w:s0
 
-# FPC Fingerprint
-/data/fpc(/.*)?                             u:object_r:fpc_data_file:s0
-/dev/socket/fpce                            u:object_r:fpc_socket:s0
-/sys/devices(/platform)?/soc/soc:fpc1020(/.*)?          u:object_r:fpc_sysfs:s0
+# Fpc Fingerprint
+/data/fpc(/.*)?                                 u:object_r:fpc_data_file:s0
+/dev/socket/fpce(/.*)?                          u:object_r:fpce_socket:s0
+/sys/devices/(platform)?/soc/soc:fpc1020(/.*)?  u:object_r:fpc_sysfs:s0
 
 # Goodix Fingerprint
+/dev/goodix_fp                                  u:object_r:gx_fpd_device:s0
 /data/goodix(/.*)?                          u:object_r:gx_fpd_data_file:s0
-/data/system/fingerprint(/.*)?              u:object_r:gx_fpd_data_file:s0
-/dev/gf66xx-spi                             u:object_r:gx_fpd_device:s0
-/dev/goodix_fp                              u:object_r:gx_fpd_device:s0
-/(vendor|system/vendor)/bin/gx_fpd          u:object_r:gx_fpd_exec:s0
+/dev/gf66xx-spi                                 u:object_r:gx_fpd_device:s0
+/data/gf_data(/.*)?                             u:object_r:gx_fpd_data_file:s0
+/data/system/fingerprint(/.*)?                  u:object_r:gx_fpd_data_file:s0
+/(vendor|system/vendor)/bin/gx_fpd              u:object_r:gx_fpd_exec:s0
+/(vendor|system/vendor)/bin/init\.goodix\.sh	u:object_r:init_fingerprint_exec:s0
 
 # HIDL
-/(vendor|system/vendor)/bin/hw/android\.hardware\.biometrics\.fingerprint@2\.1-service.land          u:object_r:hal_fingerprint_default_exec:s0
+/(vendor|system/vendor)/bin/hw/android\.hardware\.biometrics\.fingerprint@2\.2-service.custom        u:object_r:hal_fingerprint_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.power@1\.1-service\.custom                         u:object_r:hal_power_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.light@2\.0-service\.land                           u:object_r:hal_light_default_exec:s0
 
