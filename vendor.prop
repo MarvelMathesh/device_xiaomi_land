@@ -254,6 +254,9 @@ debug.sf.early_gl_phase_offset_ns=3000000
 debug.sf.early_gl_app_phase_offset_ns=15000000
 debug.sf.phase_offset_threshold_for_next_vsync_ns=11600000
 
+# System
+persist.sys.binary_xml=false
+
 # Time Services
 persist.backup.ntpServer=0.pool.ntp.org
 persist.timed.enable=true
