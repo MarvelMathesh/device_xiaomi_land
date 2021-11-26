@@ -166,6 +166,12 @@ on boot
     # Create hvdcp_opti directory
     mkdir /mnt/vendor/persist/hvdcp_opti 0770 root system
 
+    # Enable qcrild and data services
+    enable vendor.qcrild
+    enable vendor.qcrild2
+    enable vendor.dataqti
+    enable vendor.dataadpl
+
     # Double Tap To Wake
     chown system system /sys/android_touch/doubletap2wake
     chmod 660 /sys/android_touch/doubletap2wake
