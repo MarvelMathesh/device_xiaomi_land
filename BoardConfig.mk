@@ -145,6 +145,9 @@ TARGET_RECOVERY_DEVICE_MODULES := libinit_land
 # Keystore
 TARGET_PROVIDES_KEYMASTER := true
 
+# LMKD
+TARGET_LMKD_STATS_LOG := true
+
 # Lockscreen real time charging current values
 BOARD_GLOBAL_CFLAGS += -DBATTERY_REAL_INFO
 
