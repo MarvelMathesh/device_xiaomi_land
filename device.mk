@@ -262,20 +262,21 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     com.android.ims.rcsmanager
 
-# Init scripts ramdisk
+# Ramdisk
 PRODUCT_PACKAGES += \
-    init.msm.usb.configfs.rc \
-    init.recovery.qcom.rc \
+    fstab.qcom \
     init.qcom.rc \
-    init.qcom.power.rc \
-    init.qcom.usb.rc \
-    ueventd.qcom.rc \
-    init.qcom.early_boot.sh \
-    init.qcom.post_boot.sh \
-    init.qcom.usb.sh \
     init.qcom.sh \
+    init.qcom.usb.rc \
+    init.msm.usb.configfs.rc \
     init.target.rc \
-    fstab.qcom
+    ueventd.qcom.rc
+
+PRODUCT_PACKAGES += \
+    init.qcom.usb.sh \
+    init.goodix.sh \
+    init.qcom.early_boot.sh \
+    init.qcom.post_boot.sh
 
 # Keylayout
 PRODUCT_COPY_FILES += \
