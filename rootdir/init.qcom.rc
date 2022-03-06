@@ -66,7 +66,6 @@ on init
     mkdir /mnt/vendor/persist/bms 0700 root system
     mkdir /mnt/vendor/persist/data 0700 system system
     mkdir /mnt/vendor/persist/display 0770 system graphics
-    restorecon_recursive /mnt/vendor/persist
 	
 on early-init
     mount debugfs debugfs /sys/kernel/debug
