@@ -23,6 +23,9 @@ persist.rild.nitz_short_ons_3=
 ril.subscription.types=NV,RUIM
 DEVICE_PROVISIONED=1
 
+# ScalarConfig
+vendor.display.disable_scaler=1
+
 # SurfaceFlinger
 ro.surface_flinger.protected_contents=true
 ro.surface_flinger.max_frame_buffer_acquired_buffers=3
