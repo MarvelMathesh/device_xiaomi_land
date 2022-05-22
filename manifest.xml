@@ -328,16 +328,6 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         <fqname>@3.0::IRTPService/imsrtpservice</fqname>
     </hal>
     <hal format="hidl">
-        <name>android.hardware.drm</name>
-        <transport>hwbinder</transport>
-        <fqname>@1.0::ICryptoFactory/default</fqname>
-        <fqname>@1.0::IDrmFactory/default</fqname>
-        <fqname>@1.3::ICryptoFactory/clearkey</fqname>
-        <fqname>@1.3::IDrmFactory/clearkey</fqname>
-        <fqname>@1.3::ICryptoFactory/widevine</fqname>
-        <fqname>@1.3::IDrmFactory/widevine</fqname>
-    </hal>
-    <hal format="hidl">
         <name>vendor.qti.voiceprint</name>
         <transport>hwbinder</transport>
         <fqname>@1.0::IQtiVoicePrintService/default</fqname>
