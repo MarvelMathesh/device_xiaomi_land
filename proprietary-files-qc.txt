@@ -687,11 +687,10 @@ vendor/lib64/libsensor_reg.so|bfb27dfc51abb5e99a12fb482e6fe60502859e7a
 vendor/lib64/sensor_calibrate.so|ecb95cee65056ba4adc4b30ab28a8b9e3cff1b06
 vendor/lib64/sensors.ssc.so|2640169f57829513b4614e30a4b0888ec6f2fbe7
 
-# Thermal - from olive - QKQ1.191014.001
+# Thermal - from Panther
 vendor/bin/thermal-engine
--vendor/lib/libthermalclient.so
--vendor/lib64/libthermalclient.so
-vendor/lib64/libthermalfeature.so
+vendor/lib/libthermalclient.so
+vendor/lib64/libthermalclient.so
 
 # Time services - from LA.UM.9.6.2.r1-04200-89xx.0
 -vendor/app/TimeService/TimeService.apk|1a5f39aa2969feee50ff81ec870b5e2669ae515e
