@@ -3,14 +3,6 @@ allow system_app proc_pagetypeinfo:file r_file_perms;
 binder_call(system_app, hal_power_default)
 binder_call(system_app, hal_vibrator_default)
 
-# XiaomiParts
-allow system_app {
-    sysfs_hgain
-    sysfs_mgain
-    sysfs_sgain
-    sysfs_torch
-}:file rw_file_perms;
-
 allow system_app {
     sysfs_leds
 }:dir search;

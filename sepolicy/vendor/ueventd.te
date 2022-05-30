@@ -9,3 +9,7 @@ allow ueventd {
     debugfs_wakeup_sources
 }:file getattr;
 
+allow ueventd persist_file:dir search;
+allow ueventd persist_file:file { getattr };
+allow ueventd persist_file:file { open };
+allow ueventd persist_file:file { read };

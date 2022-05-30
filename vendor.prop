@@ -191,7 +191,11 @@ net.tcp.2g_init_rwnd=10
 wifi.interface=wlan0
 
 # Usb
-persist.vendor.usb.config.extra=none
+persist.sys.usb.config=mtp,adb
+ro.adb.secure=0
+ro.secure=0
+ro.debuggable=1
+persist.vendor.sys.usb.config.extra=none
 
 # Wifi-Display
 persist.sys.wfd.virtual=0
