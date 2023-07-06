@@ -23,7 +23,7 @@ WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
 OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
 IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
-<manifest version="1.0" type="device" target-level="3">
+<manifest version="2.0" type="device" target-level="3">
     <hal format="hidl">
         <name>android.hardware.audio</name>
         <transport>hwbinder</transport>
@@ -118,8 +118,8 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     <hal format="hidl">
         <name>android.hardware.radio</name>
         <transport>hwbinder</transport>
-        <fqname>@1.1::IRadio/slot1</fqname>
-        <fqname>@1.1::IRadio/slot2</fqname>
+        <fqname>@1.4::IRadio/slot1</fqname>
+        <fqname>@1.4::IRadio/slot2</fqname>
         <fqname>@1.2::ISap/slot1</fqname>
         <fqname>@1.2::ISap/slot2</fqname>
     </hal>
@@ -136,8 +136,8 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     <hal format="hidl">
         <name>android.hardware.secure_element</name>
         <transport>hwbinder</transport>
-        <fqname>@1.0::ISecureElement/SIM1</fqname>
-        <fqname>@1.0::ISecureElement/SIM2</fqname>
+        <fqname>@1.2::ISecureElement/SIM1</fqname>
+        <fqname>@1.2::ISecureElement/SIM2</fqname>
     </hal>
     <hal format="hidl">
         <name>android.hardware.sensors</name>
@@ -200,6 +200,11 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         <fqname>@1.0::IDisplayPostproc/default</fqname>
     </hal>
     <hal format="hidl">
+        <name>vendor.lineage.livedisplay</name>
+        <transport>hwbinder</transport>
+        <fqname>@2.0::IPictureAdjustment/default</fqname>
+    </hal>
+    <hal format="hidl">
         <name>vendor.qti.hardware.alarm</name>
         <transport>hwbinder</transport>
         <fqname>@1.0::IAlarm/default</fqname>
@@ -257,6 +262,12 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         <transport>hwbinder</transport>
         <fqname>@1.1::IDataConnection/slot1</fqname>
         <fqname>@1.1::IDataConnection/slot2</fqname>
+    </hal>    
+    <hal format="hidl">
+        <name>vendor.qti.hardware.data.iwlan</name>
+        <transport>hwbinder</transport>
+        <fqname>@1.0::IIWlan/slot1</fqname>
+        <fqname>@1.0::IIWlan/slot2</fqname>
     </hal>
     <hal format="hidl">
         <name>com.dsi.ant</name>
@@ -271,14 +282,14 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     <hal format="hidl">
         <name>vendor.qti.hardware.radio.ims</name>
         <transport>hwbinder</transport>
-        <fqname>@1.6::IImsRadio/imsradio0</fqname>
-        <fqname>@1.6::IImsRadio/imsradio1</fqname>
+        <fqname>@1.7::IImsRadio/imsradio0</fqname>
+        <fqname>@1.7::IImsRadio/imsradio1</fqname>
     </hal>
     <hal format="hidl">
         <name>vendor.qti.hardware.radio.lpa</name>
         <transport>hwbinder</transport>
-        <fqname>@1.0::IUimLpa/UimLpa0</fqname>
-        <fqname>@1.0::IUimLpa/UimLpa1</fqname>
+        <fqname>@1.2::IUimLpa/UimLpa0</fqname>
+        <fqname>@1.2::IUimLpa/UimLpa1</fqname>
     </hal>
     <hal format="hidl">
         <name>vendor.qti.hardware.radio.qcrilhook</name>
