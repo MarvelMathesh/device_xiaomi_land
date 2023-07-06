@@ -12,8 +12,4 @@ allow qti_init_shell proc_page_cluster:file { open write };
 # Postboot
 allow qti_init_shell sysfs:file { write setattr };
 
-allow qti_init_shell sysfs_leds:file { setattr };
-
-allow qti_init_shell configfs:dir { write };
-
-allow qti_init_shell configfs:dir { add_name };
+allow qti_init_shell sysfs_slab_zspage_storeuser:file w_file_perms;
