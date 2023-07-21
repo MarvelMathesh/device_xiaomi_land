@@ -25,3 +25,4 @@ service vendor.light-land /vendor/bin/hw/android.hardware.lights-service.land
     user system
     group system
     shutdown critical
+    task_profiles ServiceCapacityLow
