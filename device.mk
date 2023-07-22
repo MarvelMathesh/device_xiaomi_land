@@ -187,7 +187,7 @@ PRODUCT_PACKAGES += \
     android.hardware.graphics.allocator@2.0-service \
     android.hardware.graphics.mapper@2.0-impl-2.1 \
     vendor.qti.hardware.display.allocator-service \
-    vendor.qti.hardware.display.mapper@2.0.vendor
+    vendor.qti.hardware.display.mapper@2.0.vendor \
     gralloc.msm8937
 
 PRODUCT_PACKAGES += \
@@ -379,8 +379,10 @@ PRODUCT_PACKAGES += \
 
 # SOONG
 PRODUCT_SOONG_NAMESPACES += \
-    $(LOCAL_PATH) \
-    hardware/qcom-caf/msm8996
+    $(LOCAL_PATH)
+    
+QCOM_SOONG_NAMESPACE := \
+    $(LOCAL_PATH)/qcom-caf
 
 # QMI
 PRODUCT_PACKAGES += \
