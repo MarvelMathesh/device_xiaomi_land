@@ -3,6 +3,10 @@ dontaudit gmscore_app firmware_file:filesystem getattr;
 dontaudit gmscore_app hal_memtrack_hwservice:hwservice_manager find;
 
 binder_call(gmscore_app, hal_memtrack_default);
+binder_call(gmscore_app, hal_memtrack_hwservice);
+
+# Baseband (without this, device will freeze)
+get_prop(gmscore_app, baseband_prop)
 
 allow gmscore_app exported_camera_prop:file { read };
 allow gmscore_app exported_camera_prop:file { open };

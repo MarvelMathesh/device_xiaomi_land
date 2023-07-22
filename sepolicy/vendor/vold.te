@@ -1,6 +1,5 @@
 allow vold proc_touchpanel:dir r_dir_perms;
-
-# For setting read_ahead_kb
+allow vold persist_file:dir r_dir_perms;
+allow vold same_process_hal_file:file { execute getattr open read };
 allow vold sysfs_mmc_host:file create_file_perms;
-
-allow vold rootfs:dir { setattr };
+allow vold dm_device:blk_file ioctl;
