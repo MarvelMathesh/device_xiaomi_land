@@ -49,7 +49,6 @@ allow init system_file:file { mounton };
 allow init system_server:binder call;
 allow init video_device:chr_file { open read write };
 allow init fingerprintd_data_file:file rename;
-allow init sysfs_fps_attr:file { open read write };
 allow init self:netlink_socket { bind create write };
 allow init system_server:binder transfer;
 allow init vendor_file:file { execute };
@@ -58,3 +57,6 @@ allow init socket_device:sock_file { create setattr unlink };
 allow init self:capability sys_nice;
 allow init iorapd_data_file:file getattr;
 allow init same_process_hal_file:file execute;
+
+# Power
+allow init sysfs_battery_supply:file setattr;

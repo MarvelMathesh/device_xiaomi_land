@@ -1,6 +1,3 @@
-# Camera
-vendor_internal_prop(vendor_camera_prop)
-
 # Fingerprint
 vendor_internal_prop(vendor_fingerprint_prop)
 
@@ -11,5 +8,11 @@ vendor_internal_prop(vendor_init_prop)
 vendor_restricted_prop(vendor_imsradio_prop)
 vendor_internal_prop(persist_sensors_radio_prop)
 
-# Wlan
-vendor_internal_prop(vendor_wifi_prop)
+# mwqem property
+vendor_restricted_prop(vendor_mwqem_prop);
+
+# slm property
+vendor_restricted_prop(vendor_slm_prop);
+
+# Wi-Fi
+vendor_internal_prop(vendor_wifi_prop);

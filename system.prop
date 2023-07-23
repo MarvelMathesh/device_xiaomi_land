@@ -6,6 +6,8 @@
 audio.offload.disable=true
 vendor.fastrpc.disable.adsprpcd_sensorspd.daemon=1
 
+
+
 # Camera
 media.camera.ts.monotonic=1
 persist.camera.gyro.android=0

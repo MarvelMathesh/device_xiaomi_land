@@ -17,12 +17,7 @@ $(call inherit-product, $(LOCAL_PATH)/device.mk)
 
 # Bootanimation
 TARGET_BOOT_ANIMATION_RES := 720
-
-# Extra's
-TARGET_FACE_UNLOCK_SUPPORTED := true
-TARGET_SUPPORTS_GOOGLE_RECORDER := false
-TARGET_INCLUDE_STOCK_ARCORE := true
-TARGET_INCLUDE_LIVE_WALLPAPERS := false
+TARGET_BOOTANIMATION_HALF_RES := true
 
 # Device identifier
 PRODUCT_DEVICE := land
