@@ -1,0 +1,20 @@
+get_prop(system_server, userspace_reboot_config_prop)
+get_prop(system_server, userspace_reboot_exported_prop)
+
+# DT2W
+allow system_server sysfs_dt2w:dir { search };
+allow system_server sysfs_dt2w:file { read open getattr };
+
+# power
+allow system_server sysfs_battery_supply:file { read open getattr };
+allow system_server sysfs_battery_supply:file rw_file_perms;
+
+# vibrator
+allow system_server sysfs_vibrator:file read;
+
+# zygote
+allow system_server app_zygote:process getpgid;
+
+allow system_server exported_camera_prop:file { read };
+allow system_server exported_camera_prop:file { open };
+allow system_server exported_camera_prop:file { getattr };
