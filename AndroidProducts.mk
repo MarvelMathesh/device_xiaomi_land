@@ -5,9 +5,9 @@
 #
 
 PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/lineage_land.mk
+    $(LOCAL_DIR)/arrow_land.mk
 
 COMMON_LUNCH_CHOICES := \
-    lineage_land-user \
-    lineage_land-userdebug \
-    lineage_land-eng
+    arrow_land-user \
+    arrow_land-userdebug \
+    arrow_land-eng
