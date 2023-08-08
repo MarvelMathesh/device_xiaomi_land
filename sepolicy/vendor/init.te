@@ -1,7 +1,3 @@
-allow init property_type:file { append create getattr map open read relabelto rename setattr unlink write };
-
-allow init self:capability sys_nice;
-
 # DT2W
 allow init sysfs_dt2w:file { setattr };
 

@@ -1,5 +1,9 @@
-#============= hal_perf_default ==============
-binder_call(hal_perf_default, hal_graphics_composer_default);
-allow hal_perf_default init:unix_stream_socket connectto;
+allow hal_perf_default device:file r_file_perms;
 allow hal_perf_default property_socket:sock_file write;
-set_prop(hal_perf_default, vendor_mpctl_prop);
+allow hal_perf_default init:unix_stream_socket connectto;
+allow hal_perf_default vendor_default_prop:property_service set;
+allow hal_perf_default hal_display_config_hwservice:hwservice_manager find;
+allow hal_perf_default hal_graphics_composer_default:binder call;
+allow hal_perf_default proc_meminfo:file r_file_perms;
+allow hal_perf_default system_server:dir search;
+allow hal_perf_default system_server:file r_file_perms;

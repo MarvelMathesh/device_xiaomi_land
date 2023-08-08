@@ -1,5 +1,7 @@
-allow qti_init_shell proc_touchpanel:dir { r_dir_perms setattr };
-allow qti_init_shell proc_touchpanel:file { getattr setattr };
+dontaudit qti_init_shell self:capability { dac_override };
+
+# Allow access to swappiness
+allow qti_init_shell proc_swap:file { open write };
 
 # Allow adjust page_cluster setting
 allow qti_init_shell proc_page_cluster:file { open write };
@@ -7,4 +9,4 @@ allow qti_init_shell proc_page_cluster:file { open write };
 # Postboot
 allow qti_init_shell sysfs:file { write setattr };
 
-allow qti_init_shell system_data_file:file getattr;
+allow qti_init_shell sysfs_slab_zspage_storeuser:file w_file_perms;
