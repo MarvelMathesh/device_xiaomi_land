@@ -369,8 +369,7 @@ PRODUCT_PACKAGES += \
 
 # SOONG
 PRODUCT_SOONG_NAMESPACES += \
-    $(LOCAL_PATH) \
-    hardware/qcom-caf/msm8996
+    $(LOCAL_PATH)
 
 # QMI
 PRODUCT_PACKAGES += \
